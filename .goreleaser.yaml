@@ -66,7 +66,7 @@ brews:
     commit_msg_template: "brew: update {{ .ProjectName }} to {{ .Tag }}"
     homepage: "https://github.com/shunvel/mcp-breaker"
     description: "Semantic MCP circuit breaker proxy for AI agent tool loops"
-    license: "Apache-2.0"
+    license: "MIT"
     install: |
       bin.install "mcp-breaker"
     test: |

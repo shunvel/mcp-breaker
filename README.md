@@ -1,6 +1,6 @@
 # mcp-breaker
 
-[![License: Apache-2.0](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](LICENSE)
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 [![Go](https://img.shields.io/badge/Go-1.24+-00ADD8?logo=go&logoColor=white)](https://go.dev/)
 [![CI](https://github.com/shunvel/mcp-breaker/actions/workflows/ci.yml/badge.svg)](https://github.com/shunvel/mcp-breaker/actions/workflows/ci.yml)
 
@@ -548,7 +548,7 @@ See [CONTRIBUTING.md](CONTRIBUTING.md) for development setup, conventions, and t
 
 ## License
 
-Apache License 2.0 — see [LICENSE](LICENSE).
+MIT License — see [LICENSE](LICENSE).
 
 ---
 

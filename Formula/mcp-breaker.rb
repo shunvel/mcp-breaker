@@ -6,7 +6,7 @@ class McpBreaker < Formula
   desc "Semantic MCP circuit breaker proxy for AI agent tool loops"
   homepage "https://github.com/shunvel/mcp-breaker"
   version "0.2.1"
-  license "Apache-2.0"
+  license "MIT"
 
   on_macos do
     if Hardware::CPU.intel?
