@@ -1,0 +1,4 @@
+=== RUN   TestCaseB_SemanticStagnation
+--- PASS: TestCaseB_SemanticStagnation (0.00s)
+PASS
+ok  	github.com/shunvel/mcp-breaker/pkg/breaker	0.203s

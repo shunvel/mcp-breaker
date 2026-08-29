@@ -1,0 +1,3 @@
+mcp-breaker: 2026/08/29 15:48:24 echo detector: trips after 3 consecutive identical tools/call payloads per tool (ring size 5)
+mcp-breaker: 2026/08/29 15:48:24 graph ledger: detects A-B-A-B loops in sliding window (size 10)
+mcp-breaker: 2026/08/29 15:48:24 semantic detector: disabled (run `mcp-breaker models download`; set MCP_BREAKER_MOCK_EMBED=1 for dev without ONNX)

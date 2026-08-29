@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="578" height="544">
+<rect width="100%" height="100%" fill="#1e1e1e" rx="8"/>
+<text x="16" y="28" fill="#d5dbdb" font-family="Menlo,Monaco,monospace" font-size="12">mcp-breaker dashboard — live TUI</text>
+<text x="16" y="44" fill="#85c1e9" font-family="Menlo,Monaco,monospace" font-size="12">────────────────────────────────────────</text>
+<text x="16" y="60" fill="#d5dbdb" font-family="Menlo,Monaco,monospace" font-size="12">mcp-breaker dashboard</text>
+<text x="16" y="76" fill="#d5dbdb" font-family="Menlo,Monaco,monospace" font-size="12"></text>
+<text x="16" y="92" fill="#d5dbdb" font-family="Menlo,Monaco,monospace" font-size="12">Metrics</text>
+<text x="16" y="108" fill="#d5dbdb" font-family="Menlo,Monaco,monospace" font-size="12">  Frames: 5  Tools/call: 4  Echo: 0  Semantic: 0  Graph: 1  Tokens saved: ~500</text>
+<text x="16" y="124" fill="#d5dbdb" font-family="Menlo,Monaco,monospace" font-size="12">  Last cosine (N vs N-2): 0.000</text>
+<text x="16" y="140" fill="#d5dbdb" font-family="Menlo,Monaco,monospace" font-size="12"></text>
+<text x="16" y="156" fill="#f5b041" font-family="Menlo,Monaco,monospace" font-size="12">PAUSED — loop detected: write_file → read_file → write_file → read_file</text>
+<text x="16" y="172" fill="#d5dbdb" font-family="Menlo,Monaco,monospace" font-size="12"></text>
+<text x="16" y="188" fill="#d5dbdb" font-family="Menlo,Monaco,monospace" font-size="12">Live stream</text>
+<text x="16" y="204" fill="#d5dbdb" font-family="Menlo,Monaco,monospace" font-size="12">  [frame] tools/call</text>
+<text x="16" y="220" fill="#f5b041" font-family="Menlo,Monaco,monospace" font-size="12">  [graph_trip]  read_file write_file → read_file → write_file → read_file</text>
+<text x="16" y="236" fill="#d5dbdb" font-family="Menlo,Monaco,monospace" font-size="12">  [paused]  write_file → read_file → write_file → read_file</text>
+<text x="16" y="252" fill="#d5dbdb" font-family="Menlo,Monaco,monospace" font-size="12">  [frame] initialize</text>
+<text x="16" y="268" fill="#d5dbdb" font-family="Menlo,Monaco,monospace" font-size="12">  [frame] tools/call</text>
+<text x="16" y="284" fill="#d5dbdb" font-family="Menlo,Monaco,monospace" font-size="12">  [frame] tools/call</text>
+<text x="16" y="300" fill="#d5dbdb" font-family="Menlo,Monaco,monospace" font-size="12">  [frame] tools/call</text>
+<text x="16" y="316" fill="#d5dbdb" font-family="Menlo,Monaco,monospace" font-size="12">  [echo_trip]  write_file</text>
+<text x="16" y="332" fill="#d5dbdb" font-family="Menlo,Monaco,monospace" font-size="12">  [frame] initialize</text>
+<text x="16" y="348" fill="#d5dbdb" font-family="Menlo,Monaco,monospace" font-size="12">  [frame] tools/call</text>
+<text x="16" y="364" fill="#d5dbdb" font-family="Menlo,Monaco,monospace" font-size="12">  [frame] tools/call</text>
+<text x="16" y="380" fill="#d5dbdb" font-family="Menlo,Monaco,monospace" font-size="12">  [frame] tools/call</text>
+<text x="16" y="396" fill="#d5dbdb" font-family="Menlo,Monaco,monospace" font-size="12">  [echo_trip]  write_file</text>
+<text x="16" y="412" fill="#d5dbdb" font-family="Menlo,Monaco,monospace" font-size="12">  [frame] initialize</text>
+<text x="16" y="428" fill="#d5dbdb" font-family="Menlo,Monaco,monospace" font-size="12">  [frame] tools/call</text>
+<text x="16" y="444" fill="#d5dbdb" font-family="Menlo,Monaco,monospace" font-size="12">  [frame] tools/call</text>
+<text x="16" y="460" fill="#d5dbdb" font-family="Menlo,Monaco,monospace" font-size="12">  [frame] tools/call</text>
+<text x="16" y="476" fill="#d5dbdb" font-family="Menlo,Monaco,monospace" font-size="12">  [frame] tools/call</text>
+<text x="16" y="492" fill="#f5b041" font-family="Menlo,Monaco,monospace" font-size="12">  [graph_trip]  read_file write_file → read_file → write_file → read_file</text>
+<text x="16" y="508" fill="#d5dbdb" font-family="Menlo,Monaco,monospace" font-size="12">  [paused]  write_file → read_file → write_file → read_file</text>
+<text x="16" y="524" fill="#d5dbdb" font-family="Menlo,Monaco,monospace" font-size="12"></text>
+</svg>

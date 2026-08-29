@@ -1,0 +1,5 @@
+{"jsonrpc":"2.0","id":5,"result":{"content":[{"type":"text","text":"Error: Detected tool invocation loop [write_file → read_file → write_file → read_file]. Execution paused. Open `mcp-breaker dashboard` and press R to resume, or change your approach."}],"isError":true}}
+{"jsonrpc":"2.0","id":1,"result":{"capabilities":{},"protocolVersion":"2024-11-05","serverInfo":{"name":"testmcp","version":"0.0.1"}}}
+{"jsonrpc":"2.0","id":2,"result":{"content":[{"text":"ok","type":"text"}],"isError":false}}
+{"jsonrpc":"2.0","id":3,"result":{"content":[{"text":"ok","type":"text"}],"isError":false}}
+{"jsonrpc":"2.0","id":4,"result":{"content":[{"text":"ok","type":"text"}],"isError":false}}

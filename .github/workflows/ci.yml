@@ -20,7 +20,7 @@ jobs:
       - name: Set up Go
         uses: actions/setup-go@v5
         with:
-          go-version: "1.23"
+          go-version: "1.24"
           cache: true
 
       - name: Verify module
@@ -49,7 +49,7 @@ jobs:
       - name: Set up Go
         uses: actions/setup-go@v5
         with:
-          go-version: "1.23"
+          go-version: "1.24"
           cache: true
 
       - name: Run demo script
@@ -60,3 +60,23 @@ jobs:
 
       - name: Assert echo trip occurred
         run: grep -q "identical failures" demo-stdout.ndjson
+
+  semantic-macos:
+    name: Semantic mock (macOS)
+    runs-on: macos-latest
+    needs: test
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Go
+        uses: actions/setup-go@v5
+        with:
+          go-version: "1.24"
+          cache: true
+
+      - name: Test Case B with mock embedder
+        run: MCP_BREAKER_MOCK_EMBED=1 go test ./pkg/breaker -run TestCaseB -count=1 -v
+
+      - name: Build
+        run: go build -o mcp-breaker ./cmd/mcp-breaker

@@ -59,7 +59,11 @@ go vet ./...
 | Package | Responsibility |
 |---------|----------------|
 | `pkg/proxy` | JSON-RPC framing, session proxy, stdio wrap — **no breaker logic** |
-| `pkg/breaker` | Detection modules (echo, semantic, etc.) implementing `proxy.Interceptor` |
+| `pkg/breaker` | Detection modules (echo, semantic, ledger) implementing `proxy.Interceptor` |
+| `pkg/embed` | Embedder interface, mock, ONNX stub, model download |
+| `pkg/telemetry` | Event bus and control socket for dashboard |
+| `pkg/dashboard` | Bubble Tea TUI |
+| `pkg/config` | Runtime paths and thresholds |
 | `pkg/protocol` | MCP types and intervention payload helpers |
 | `cmd/mcp-breaker` | CLI entry point only |
 | `internal/testmcp` | Fake MCP server for tests and demos |
@@ -77,6 +81,21 @@ Prepares the interceptor interface for ONNX embedding integration
 without changing proxy behavior.
 ```
 
+### Semantic / ONNX setup
+
+```bash
+export MCP_BREAKER_MOCK_EMBED=1   # dev without ONNX Runtime
+make test
+mcp-breaker models download       # fetch All-MiniLM-L6-v2 cache
+go build -tags=onnx -o mcp-breaker ./cmd/mcp-breaker
+```
+
+See [docs/install/homebrew.md](docs/install/homebrew.md).
+
+### Dashboard development
+
+Run `mcp-breaker wrap` and `mcp-breaker dashboard` in separate terminals. Events use `~/.mcp-breaker/run/events.sock`; resume via `control.sock` (press **R** in dashboard).
+
 ## Pull request process
 
 1. **Fork** the repository and create a feature branch from `main`
@@ -91,7 +110,7 @@ without changing proxy behavior.
    - How you tested it
    - Any breaking changes
 
-CI must pass before merge. The workflow runs `go vet`, `go test -race`, build, and a demo smoke test.
+CI must pass before merge. The workflow runs `go vet`, `go test -race`, build, demo smoke, and macOS semantic mock tests.
 
 ### Review expectations
 

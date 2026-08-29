@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="352">
+<rect width="100%" height="100%" fill="#1e1e1e" rx="8"/>
+<text x="16" y="28" fill="#d5dbdb" font-family="Menlo,Monaco,monospace" font-size="12">make demo — echo breaker (Test Case A)</text>
+<text x="16" y="44" fill="#85c1e9" font-family="Menlo,Monaco,monospace" font-size="12">────────────────────────────────────────</text>
+<text x="16" y="60" fill="#d5dbdb" font-family="Menlo,Monaco,monospace" font-size="12">bash scripts/demo.sh</text>
+<text x="16" y="76" fill="#d5dbdb" font-family="Menlo,Monaco,monospace" font-size="12">Building mcp-breaker and fakemcp...</text>
+<text x="16" y="92" fill="#d5dbdb" font-family="Menlo,Monaco,monospace" font-size="12"></text>
+<text x="16" y="108" fill="#85c1e9" font-family="Menlo,Monaco,monospace" font-size="12">=== Demo: 3 identical write_file calls ===</text>
+<text x="16" y="124" fill="#d5dbdb" font-family="Menlo,Monaco,monospace" font-size="12">Expected: calls 1-2 forward (ok), call 3 blocked (intervention)</text>
+<text x="16" y="140" fill="#d5dbdb" font-family="Menlo,Monaco,monospace" font-size="12"></text>
+<text x="16" y="156" fill="#e74c3c" font-family="Menlo,Monaco,monospace" font-size="12">{&quot;jsonrpc&quot;:&quot;2.0&quot;,&quot;id&quot;:4,&quot;result&quot;:{&quot;content&quot;:[{&quot;type&quot;:&quot;text&quot;,&quot;text&quot;:&quot;Error: Command [write_file] generated identical fail</text>
+<text x="16" y="172" fill="#d5dbdb" font-family="Menlo,Monaco,monospace" font-size="12">{&quot;jsonrpc&quot;:&quot;2.0&quot;,&quot;id&quot;:1,&quot;result&quot;:{&quot;capabilities&quot;:{},&quot;protocolVersion&quot;:&quot;2024-11-05&quot;,&quot;serverInfo&quot;:{&quot;name&quot;:&quot;testmcp&quot;,&quot;versi</text>
+<text x="16" y="188" fill="#d5dbdb" font-family="Menlo,Monaco,monospace" font-size="12">{&quot;jsonrpc&quot;:&quot;2.0&quot;,&quot;id&quot;:2,&quot;result&quot;:{&quot;content&quot;:[{&quot;text&quot;:&quot;ok&quot;,&quot;type&quot;:&quot;text&quot;}],&quot;isError&quot;:false}}</text>
+<text x="16" y="204" fill="#d5dbdb" font-family="Menlo,Monaco,monospace" font-size="12">{&quot;jsonrpc&quot;:&quot;2.0&quot;,&quot;id&quot;:3,&quot;result&quot;:{&quot;content&quot;:[{&quot;text&quot;:&quot;ok&quot;,&quot;type&quot;:&quot;text&quot;}],&quot;isError&quot;:false}}</text>
+<text x="16" y="220" fill="#d5dbdb" font-family="Menlo,Monaco,monospace" font-size="12"></text>
+<text x="16" y="236" fill="#d5dbdb" font-family="Menlo,Monaco,monospace" font-size="12">--- Parsed responses ---</text>
+<text x="16" y="252" fill="#e74c3c" font-family="Menlo,Monaco,monospace" font-size="12">  id=4: [BLOCKED] Error: Command [write_file] generated identical failures across consec...</text>
+<text x="16" y="268" fill="#d5dbdb" font-family="Menlo,Monaco,monospace" font-size="12">  id=1: initialize -&gt; testmcp</text>
+<text x="16" y="284" fill="#d5dbdb" font-family="Menlo,Monaco,monospace" font-size="12">  id=2: [forwarded] ok</text>
+<text x="16" y="300" fill="#d5dbdb" font-family="Menlo,Monaco,monospace" font-size="12">  id=3: [forwarded] ok</text>
+<text x="16" y="316" fill="#d5dbdb" font-family="Menlo,Monaco,monospace" font-size="12"></text>
+<text x="16" y="332" fill="#d5dbdb" font-family="Menlo,Monaco,monospace" font-size="12">Done. No external MCP server was needed — fakemcp ships with this repo.</text>
+</svg>

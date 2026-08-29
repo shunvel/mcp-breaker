@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="592" height="544">
+<rect width="100%" height="100%" fill="#1e1e1e" rx="8"/>
+<text x="16" y="28" fill="#d5dbdb" font-family="Menlo,Monaco,monospace" font-size="12">make validate — all flows passed</text>
+<text x="16" y="44" fill="#85c1e9" font-family="Menlo,Monaco,monospace" font-size="12">────────────────────────────────────────</text>
+<text x="16" y="60" fill="#d5dbdb" font-family="Menlo,Monaco,monospace" font-size="12">bash scripts/validate.sh</text>
+<text x="16" y="76" fill="#d5dbdb" font-family="Menlo,Monaco,monospace" font-size="12"></text>
+<text x="16" y="92" fill="#85c1e9" font-family="Menlo,Monaco,monospace" font-size="12">=== Flow 1: Full test suite ===</text>
+<text x="16" y="108" fill="#d5dbdb" font-family="Menlo,Monaco,monospace" font-size="12">?   	github.com/shunvel/mcp-breaker/cmd/mcp-breaker	[no test files]</text>
+<text x="16" y="124" fill="#d5dbdb" font-family="Menlo,Monaco,monospace" font-size="12">ok  	github.com/shunvel/mcp-breaker/internal/testmcp	3.586s</text>
+<text x="16" y="140" fill="#d5dbdb" font-family="Menlo,Monaco,monospace" font-size="12">?   	github.com/shunvel/mcp-breaker/internal/testmcp/cmd/fakemcp	[no test files]</text>
+<text x="16" y="156" fill="#d5dbdb" font-family="Menlo,Monaco,monospace" font-size="12">ok  	github.com/shunvel/mcp-breaker/pkg/breaker	0.883s</text>
+<text x="16" y="172" fill="#d5dbdb" font-family="Menlo,Monaco,monospace" font-size="12">?   	github.com/shunvel/mcp-breaker/pkg/config	[no test files]</text>
+<text x="16" y="188" fill="#d5dbdb" font-family="Menlo,Monaco,monospace" font-size="12">?   	github.com/shunvel/mcp-breaker/pkg/dashboard	[no test files]</text>
+<text x="16" y="204" fill="#d5dbdb" font-family="Menlo,Monaco,monospace" font-size="12">ok  	github.com/shunvel/mcp-breaker/pkg/embed	1.376s</text>
+<text x="16" y="220" fill="#d5dbdb" font-family="Menlo,Monaco,monospace" font-size="12">?   	github.com/shunvel/mcp-breaker/pkg/protocol	[no test files]</text>
+<text x="16" y="236" fill="#d5dbdb" font-family="Menlo,Monaco,monospace" font-size="12">ok  	github.com/shunvel/mcp-breaker/pkg/proxy	1.889s</text>
+<text x="16" y="252" fill="#d5dbdb" font-family="Menlo,Monaco,monospace" font-size="12">ok  	github.com/shunvel/mcp-breaker/pkg/telemetry	2.260s</text>
+<text x="16" y="268" fill="#7dcea0" font-family="Menlo,Monaco,monospace" font-size="12">PASS  go test ./...</text>
+<text x="16" y="284" fill="#d5dbdb" font-family="Menlo,Monaco,monospace" font-size="12"></text>
+<text x="16" y="300" fill="#85c1e9" font-family="Menlo,Monaco,monospace" font-size="12">=== Flow 2: Static analysis ===</text>
+<text x="16" y="316" fill="#7dcea0" font-family="Menlo,Monaco,monospace" font-size="12">PASS  go vet ./...</text>
+<text x="16" y="332" fill="#d5dbdb" font-family="Menlo,Monaco,monospace" font-size="12"></text>
+<text x="16" y="348" fill="#85c1e9" font-family="Menlo,Monaco,monospace" font-size="12">=== Build binaries ===</text>
+<text x="16" y="364" fill="#7dcea0" font-family="Menlo,Monaco,monospace" font-size="12">PASS  mcp-breaker + fakemcp built</text>
+<text x="16" y="380" fill="#d5dbdb" font-family="Menlo,Monaco,monospace" font-size="12"></text>
+<text x="16" y="396" fill="#85c1e9" font-family="Menlo,Monaco,monospace" font-size="12">=== Flow 3: Echo breaker live (Test Case A) ===</text>
+<text x="16" y="412" fill="#d5dbdb" font-family="Menlo,Monaco,monospace" font-size="12">  initialize=1 forwarded=2 blocked=1</text>
+<text x="16" y="428" fill="#7dcea0" font-family="Menlo,Monaco,monospace" font-size="12">PASS  echo trip on 3rd identical tools/call</text>
+<text x="16" y="444" fill="#d5dbdb" font-family="Menlo,Monaco,monospace" font-size="12"></text>
+<text x="16" y="460" fill="#85c1e9" font-family="Menlo,Monaco,monospace" font-size="12">=== Flow 4a: Semantic stagnation (Test Case B) ===</text>
+<text x="16" y="476" fill="#d5dbdb" font-family="Menlo,Monaco,monospace" font-size="12">ok  	github.com/shunvel/mcp-breaker/pkg/breaker	0.202s</text>
+<text x="16" y="492" fill="#7dcea0" font-family="Menlo,Monaco,monospace" font-size="12">PASS  semantic Test Case B</text>
+<text x="16" y="508" fill="#d5dbdb" font-family="Menlo,Monaco,monospace" font-size="12"></text>
+<text x="16" y="524" fill="#85c1e9" font-family="Menlo,Monaco,monospace" font-size="12">=== Flow 4b: Mock embedder cosine ===</text>
+</svg>

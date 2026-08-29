@@ -1,0 +1,48 @@
+bash scripts/validate.sh
+
+[1m=== Flow 1: Full test suite ===[0m
+?   	github.com/shunvel/mcp-breaker/cmd/mcp-breaker	[no test files]
+ok  	github.com/shunvel/mcp-breaker/internal/testmcp	3.586s
+?   	github.com/shunvel/mcp-breaker/internal/testmcp/cmd/fakemcp	[no test files]
+ok  	github.com/shunvel/mcp-breaker/pkg/breaker	0.883s
+?   	github.com/shunvel/mcp-breaker/pkg/config	[no test files]
+?   	github.com/shunvel/mcp-breaker/pkg/dashboard	[no test files]
+ok  	github.com/shunvel/mcp-breaker/pkg/embed	1.376s
+?   	github.com/shunvel/mcp-breaker/pkg/protocol	[no test files]
+ok  	github.com/shunvel/mcp-breaker/pkg/proxy	1.889s
+ok  	github.com/shunvel/mcp-breaker/pkg/telemetry	2.260s
+[0;32mPASS[0m  go test ./...
+
+[1m=== Flow 2: Static analysis ===[0m
+[0;32mPASS[0m  go vet ./...
+
+[1m=== Build binaries ===[0m
+[0;32mPASS[0m  mcp-breaker + fakemcp built
+
+[1m=== Flow 3: Echo breaker live (Test Case A) ===[0m
+  initialize=1 forwarded=2 blocked=1
+[0;32mPASS[0m  echo trip on 3rd identical tools/call
+
+[1m=== Flow 4a: Semantic stagnation (Test Case B) ===[0m
+ok  	github.com/shunvel/mcp-breaker/pkg/breaker	0.202s
+[0;32mPASS[0m  semantic Test Case B
+
+[1m=== Flow 4b: Mock embedder cosine ===[0m
+ok  	github.com/shunvel/mcp-breaker/pkg/embed	0.199s
+[0;32mPASS[0m  mock embedder similarity >= 0.88
+
+[1m=== Flow 5: Graph ledger ABAB + resume ===[0m
+ok  	github.com/shunvel/mcp-breaker/pkg/breaker	0.205s
+[0;32mPASS[0m  graph ledger unit tests
+  forwarded=3 graph_blocked=1
+[0;32mPASS[0m  graph loop blocked on 4th tools/call (ABAB)
+
+[1m=== Flow 6: Control resume socket ===[0m
+ok  	github.com/shunvel/mcp-breaker/pkg/telemetry	0.244s
+[0;32mPASS[0m  dashboard resume control socket
+
+[0;32m[1mAll validations passed.[0m
+Optional manual checks:
+  ./mcp-breaker dashboard          # TUI (second terminal while wrap runs)
+  ./mcp-breaker models download    # ONNX model cache
+  MCP_BREAKER_MOCK_EMBED=1 ./mcp-breaker wrap -- ./fakemcp

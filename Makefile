@@ -1,7 +1,7 @@
 GO ?= go
 BINARY := mcp-breaker
 
-.PHONY: build test vet clean demo
+.PHONY: build test vet clean demo validate evidence
 
 build:
 	$(GO) build -o $(BINARY) ./cmd/mcp-breaker
@@ -15,5 +15,12 @@ vet:
 demo:
 	bash scripts/demo.sh
 
+validate:
+	bash scripts/validate.sh
+
+evidence:
+	bash scripts/validate.sh
+	python3 scripts/render_evidence.py
+
 clean:
-	rm -f $(BINARY) fakemcp demo-stdout.ndjson demo-stderr.log
+	rm -f $(BINARY) fakemcp demo-stdout.ndjson demo-stderr.log validate-stdout.ndjson validate-graph.ndjson

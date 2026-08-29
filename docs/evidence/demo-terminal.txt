@@ -1,0 +1,18 @@
+bash scripts/demo.sh
+Building mcp-breaker and fakemcp...
+
+=== Demo: 3 identical write_file calls ===
+Expected: calls 1-2 forward (ok), call 3 blocked (intervention)
+
+{"jsonrpc":"2.0","id":4,"result":{"content":[{"type":"text","text":"Error: Command [write_file] generated identical failures across consecutive loops. Do not retry without modifying parameters."}],"isError":true}}
+{"jsonrpc":"2.0","id":1,"result":{"capabilities":{},"protocolVersion":"2024-11-05","serverInfo":{"name":"testmcp","version":"0.0.1"}}}
+{"jsonrpc":"2.0","id":2,"result":{"content":[{"text":"ok","type":"text"}],"isError":false}}
+{"jsonrpc":"2.0","id":3,"result":{"content":[{"text":"ok","type":"text"}],"isError":false}}
+
+--- Parsed responses ---
+  id=4: [BLOCKED] Error: Command [write_file] generated identical failures across consec...
+  id=1: initialize -> testmcp
+  id=2: [forwarded] ok
+  id=3: [forwarded] ok
+
+Done. No external MCP server was needed — fakemcp ships with this repo.

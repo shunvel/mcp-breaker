@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="144">
+<rect width="100%" height="100%" fill="#1e1e1e" rx="8"/>
+<text x="16" y="28" fill="#d5dbdb" font-family="Menlo,Monaco,monospace" font-size="12">graph ledger — ABAB loop blocked</text>
+<text x="16" y="44" fill="#85c1e9" font-family="Menlo,Monaco,monospace" font-size="12">────────────────────────────────────────</text>
+<text x="16" y="60" fill="#e74c3c" font-family="Menlo,Monaco,monospace" font-size="12">{&quot;jsonrpc&quot;:&quot;2.0&quot;,&quot;id&quot;:5,&quot;result&quot;:{&quot;content&quot;:[{&quot;type&quot;:&quot;text&quot;,&quot;text&quot;:&quot;Error: Detected tool invocation loop [write_file → r</text>
+<text x="16" y="76" fill="#d5dbdb" font-family="Menlo,Monaco,monospace" font-size="12">{&quot;jsonrpc&quot;:&quot;2.0&quot;,&quot;id&quot;:1,&quot;result&quot;:{&quot;capabilities&quot;:{},&quot;protocolVersion&quot;:&quot;2024-11-05&quot;,&quot;serverInfo&quot;:{&quot;name&quot;:&quot;testmcp&quot;,&quot;versi</text>
+<text x="16" y="92" fill="#d5dbdb" font-family="Menlo,Monaco,monospace" font-size="12">{&quot;jsonrpc&quot;:&quot;2.0&quot;,&quot;id&quot;:2,&quot;result&quot;:{&quot;content&quot;:[{&quot;text&quot;:&quot;ok&quot;,&quot;type&quot;:&quot;text&quot;}],&quot;isError&quot;:false}}</text>
+<text x="16" y="108" fill="#d5dbdb" font-family="Menlo,Monaco,monospace" font-size="12">{&quot;jsonrpc&quot;:&quot;2.0&quot;,&quot;id&quot;:3,&quot;result&quot;:{&quot;content&quot;:[{&quot;text&quot;:&quot;ok&quot;,&quot;type&quot;:&quot;text&quot;}],&quot;isError&quot;:false}}</text>
+<text x="16" y="124" fill="#d5dbdb" font-family="Menlo,Monaco,monospace" font-size="12">{&quot;jsonrpc&quot;:&quot;2.0&quot;,&quot;id&quot;:4,&quot;result&quot;:{&quot;content&quot;:[{&quot;text&quot;:&quot;ok&quot;,&quot;type&quot;:&quot;text&quot;}],&quot;isError&quot;:false}}</text>
+</svg>

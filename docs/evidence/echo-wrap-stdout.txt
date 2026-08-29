@@ -1,0 +1,4 @@
+{"jsonrpc":"2.0","id":4,"result":{"content":[{"type":"text","text":"Error: Command [write_file] generated identical failures across consecutive loops. Do not retry without modifying parameters."}],"isError":true}}
+{"jsonrpc":"2.0","id":1,"result":{"capabilities":{},"protocolVersion":"2024-11-05","serverInfo":{"name":"testmcp","version":"0.0.1"}}}
+{"jsonrpc":"2.0","id":2,"result":{"content":[{"text":"ok","type":"text"}],"isError":false}}
+{"jsonrpc":"2.0","id":3,"result":{"content":[{"text":"ok","type":"text"}],"isError":false}}

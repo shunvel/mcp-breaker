@@ -1,0 +1,36 @@
+---
+pid: 13395
+cwd: /Users/susha/Projects/mcp-breaker
+active_command: ./mcp-breaker dashboard
+---
+mcp-breaker dashboard
+
+Metrics
+  Frames: 5  Tools/call: 4  Echo: 0  Semantic: 0  Graph: 1  Tokens saved: ~500
+  Last cosine (N vs N-2): 0.000
+
+PAUSED — loop detected: write_file → read_file → write_file → read_file
+
+Live stream
+  [frame] tools/call
+  [graph_trip]  read_file write_file → read_file → write_file → read_file
+  [paused]  write_file → read_file → write_file → read_file
+  [frame] initialize
+  [frame] tools/call
+  [frame] tools/call
+  [frame] tools/call
+  [echo_trip]  write_file
+  [frame] initialize
+  [frame] tools/call
+  [frame] tools/call
+  [frame] tools/call
+  [echo_trip]  write_file
+  [frame] initialize
+  [frame] tools/call
+  [frame] tools/call
+  [frame] tools/call
+  [frame] tools/call
+  [graph_trip]  read_file write_file → read_file → write_file → read_file
+  [paused]  write_file → read_file → write_file → read_file
+
+[R] Resume  [Q] Quit

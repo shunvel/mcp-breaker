@@ -1,16 +1,9 @@
 package main
 
 import (
-	"context"
-	"flag"
 	"fmt"
 	"log"
 	"os"
-	"os/signal"
-	"syscall"
-
-	"github.com/shunvel/mcp-breaker/pkg/breaker"
-	"github.com/shunvel/mcp-breaker/pkg/proxy"
 )
 
 func main() {
@@ -22,11 +15,14 @@ func main() {
 		os.Exit(2)
 	}
 
+	var err error
 	switch os.Args[1] {
 	case "wrap":
-		if err := runWrap(os.Args[2:]); err != nil {
-			log.Fatal(err)
-		}
+		err = runWrap(os.Args[2:])
+	case "dashboard":
+		err = runDashboard(os.Args[2:])
+	case "models":
+		err = runModels(os.Args[2:])
 	case "help", "-h", "--help":
 		printUsage()
 	default:
@@ -34,46 +30,24 @@ func main() {
 		printUsage()
 		os.Exit(2)
 	}
+	if err != nil {
+		log.Fatal(err)
+	}
 }
 
 func printUsage() {
 	fmt.Fprintf(os.Stderr, `mcp-breaker — semantic MCP circuit breaker proxy
 
 Usage:
-  mcp-breaker wrap -- <command> [args...]
+  mcp-breaker wrap [--no-semantic] [--semantic-threshold=0.88] -- <command> [args...]
+  mcp-breaker dashboard
+  mcp-breaker models download|status
+  mcp-breaker help
 
-Example:
+Examples:
   mcp-breaker wrap -- npx -y @modelcontextprotocol/server-filesystem /tmp
+  mcp-breaker dashboard
+  mcp-breaker models download
 
 `)
-}
-
-func runWrap(args []string) error {
-	fs := flag.NewFlagSet("wrap", flag.ContinueOnError)
-	fs.SetOutput(os.Stderr)
-	if err := fs.Parse(args); err != nil {
-		return err
-	}
-
-	remaining := fs.Args()
-	if len(remaining) == 0 {
-		return fmt.Errorf("wrap requires a command after --")
-	}
-
-	command := remaining[0]
-	childArgs := remaining[1:]
-
-	ctx, cancel := signal.NotifyContext(context.Background(), os.Interrupt, syscall.SIGTERM)
-	defer cancel()
-
-	logger := log.New(os.Stderr, "mcp-breaker: ", log.LstdFlags)
-	logger.Println(breaker.EchoDetectorDescription())
-
-	return proxy.RunWrap(ctx, proxy.WrapConfig{
-		Command:     command,
-		Args:        childArgs,
-		Stderr:      os.Stderr,
-		Logger:      logger,
-		Interceptor: breaker.NewEchoDetector(),
-	})
 }

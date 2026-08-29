@@ -14,6 +14,8 @@
 coverage.out
 demo-stdout.ndjson
 demo-stderr.log
+validate-stdout.ndjson
+validate-graph.ndjson
 
 # Go workspace
 go.work

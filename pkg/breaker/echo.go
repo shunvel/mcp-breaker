@@ -8,6 +8,7 @@ import (
 
 	"github.com/shunvel/mcp-breaker/pkg/protocol"
 	"github.com/shunvel/mcp-breaker/pkg/proxy"
+	"github.com/shunvel/mcp-breaker/pkg/telemetry"
 )
 
 const (
@@ -24,11 +25,17 @@ type toolState struct {
 // EchoDetector blocks repeated identical tools/call argument payloads.
 type EchoDetector struct {
 	tools map[string]*toolState
+	bus   *telemetry.Bus
 }
 
 // NewEchoDetector creates an echo detector with per-tool hash tracking.
 func NewEchoDetector() *EchoDetector {
 	return &EchoDetector{tools: make(map[string]*toolState)}
+}
+
+// NewEchoDetectorWithBus creates an echo detector that publishes trip events.
+func NewEchoDetectorWithBus(bus *telemetry.Bus) *EchoDetector {
+	return &EchoDetector{tools: make(map[string]*toolState), bus: bus}
 }
 
 // OnClientFrame implements proxy.Interceptor.
@@ -60,6 +67,14 @@ func (d *EchoDetector) OnClientFrame(frame proxy.Frame) proxy.Decision {
 
 	if state.consecutiveCount < echoTripThreshold {
 		return proxy.Decision{Forward: true}
+	}
+
+	if d.bus != nil {
+		d.bus.Publish(telemetry.Event{
+			Type:    telemetry.EventEchoTrip,
+			Tool:    params.Name,
+			Message: protocol.EchoInterventionMessage(params.Name),
+		})
 	}
 
 	result, err := json.Marshal(protocol.BuildEchoInterventionResult(params.Name))

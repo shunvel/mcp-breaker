@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="112">
+<rect width="100%" height="100%" fill="#1e1e1e" rx="8"/>
+<text x="16" y="28" fill="#d5dbdb" font-family="Menlo,Monaco,monospace" font-size="12">wrap stderr — detector startup logs</text>
+<text x="16" y="44" fill="#85c1e9" font-family="Menlo,Monaco,monospace" font-size="12">────────────────────────────────────────</text>
+<text x="16" y="60" fill="#d5dbdb" font-family="Menlo,Monaco,monospace" font-size="12">mcp-breaker: 2026/08/29 15:48:24 echo detector: trips after 3 consecutive identical tools/call payloads per tool (ring s</text>
+<text x="16" y="76" fill="#d5dbdb" font-family="Menlo,Monaco,monospace" font-size="12">mcp-breaker: 2026/08/29 15:48:24 graph ledger: detects A-B-A-B loops in sliding window (size 10)</text>
+<text x="16" y="92" fill="#d5dbdb" font-family="Menlo,Monaco,monospace" font-size="12">mcp-breaker: 2026/08/29 15:48:24 semantic detector: disabled (run `mcp-breaker models download`; set MCP_BREAKER_MOCK_EM</text>
+</svg>
