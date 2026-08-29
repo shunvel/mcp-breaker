@@ -13,6 +13,7 @@
 ## Table of Contents
 
 - [Problem Statement](#problem-statement)
+- [How mcp-breaker differs from alternatives](#how-mcp-breaker-differs-from-alternatives)
 - [Solution](#solution)
 - [Architecture](#architecture)
 - [Features](#features)
@@ -21,6 +22,7 @@
 - [Quick Start](#quick-start)
 - [CLI Reference](#cli-reference)
 - [Client Configuration](#client-configuration)
+- [What happens when a detector trips](#what-happens-when-a-detector-trips)
 - [How the Echo Breaker Works](#how-the-echo-breaker-works)
 - [Project Structure](#project-structure)
 - [Development](#development)
@@ -46,11 +48,41 @@ Autonomous AI agents using MCP frequently hit **semantic stagnation loops**. Unl
 | **Context degradation** | Short-term memory fills with low-signal responses, preventing the agent from breaking free on its own. |
 | **Hard aborts** | Many tools terminate the session entirely instead of redirecting the agent toward a different strategy. |
 
-**mcp-breaker** addresses this by intercepting MCP traffic at the transport layer, flagging loops within **2–3 iterations**, and returning structured interventions without killing the active chat session.
+---
+
+## How mcp-breaker differs from alternatives
+
+Most reliability tools were built for traditional web APIs or are locked inside heavy AI frameworks. They were not designed for MCP stdio transport, where tool calls look successful even when the agent is stuck.
+
+### Versus traditional circuit breakers (Opossum, pybreaker)
+
+- Generic breakers monitor HTTP status codes or process exit codes. An MCP session can stay healthy at the transport layer while `tools/call` responses repeat the same failure inside JSON-RPC payloads.
+- **mcp-breaker is protocol-aware.** It inspects MCP `tools/call` requests and tool result bodies — including semantic similarity across paraphrased errors — not just whether the pipe is still open.
+
+### Versus monolithic AI frameworks (SDK-bound breakers)
+
+- Framework-level breakers require adopting a specific orchestrator, SDK, or runtime.
+- **mcp-breaker is standalone and client-agnostic.** One binary sits between any MCP host (Cursor, Claude Desktop, Cline, etc.) and any child server (`npx`, `node`, `python`, `./fakemcp`, …). No application code changes — only the wrap command in your MCP config.
+
+### Versus cloud API gateways (AWS API Gateway, reverse proxies)
+
+- Cloud gateways protect backend infrastructure. They do not understand agent tool loops: a gateway may return a timeout while the LLM keeps retrying the same tool strategy and burning tokens on every turn.
+- **mcp-breaker operates at the MCP proxy layer.** It trips within 2–3 iterations, blocks or annotates repetitive `tools/call` traffic, and returns deterministic intervention text so the model can pivot instead of filling context with duplicate logs.
+
+### Feature matrix
+
+| Capability | Generic breakers | Framework-bound breakers | Cloud gateways | mcp-breaker |
+|------------|------------------|--------------------------|----------------|-------------|
+| MCP protocol awareness | No | Partial | No | **Yes** |
+| Client / framework agnostic | Yes | No | Yes | **Yes** |
+| LLM token loop prevention | No | Partial | No | **Yes** |
+| Zero infrastructure setup | Yes | No | No | **Yes** (single binary, stdio wrap) |
 
 ---
 
 ## Solution
+
+mcp-breaker addresses stagnation loops by intercepting MCP traffic at the transport layer, flagging them within **2–3 iterations**, and returning structured interventions without killing the active chat session.
 
 mcp-breaker runs as a transparent stdio proxy between your AI client (Cursor, Claude Desktop, Cline, etc.) and any MCP server. It monitors `tools/call` JSON-RPC frames, detects repetitive invocations, and either forwards the request or returns a synthetic intervention response.
 
@@ -356,6 +388,44 @@ Edit `~/Library/Application Support/Claude/claude_desktop_config.json` (macOS):
   "args": ["wrap", "--", "node", "postgres_mcp.js"]
 }
 ```
+
+---
+
+## What happens when a detector trips
+
+All three detectors keep the MCP **session alive** — nothing crashes Cursor, Claude Desktop, or the child server. Interventions are normal MCP `tools/call` results with `isError: true` that the agent reads on the next turn.
+
+| Detector | Trigger | Blocks server call? | Pauses session? | What the agent sees |
+|----------|---------|---------------------|-----------------|---------------------|
+| **Echo** | 3rd consecutive identical `tools/call` (same tool + args) | Yes | No | Synthetic error only |
+| **Graph** | A→B→A→B tool ping-pong (e.g. write → read → write → read) | Yes | **Yes** | Synthetic error; all later calls blocked until resume |
+| **Semantic** | Tool **responses** mean the same thing on turn N vs N−2 (cosine ≥ 0.88) | No — call reaches server | No | Real tool error **plus** appended reasoning alert |
+
+### Echo (Test Case A)
+
+The 3rd identical call is **never forwarded** to the MCP server. The proxy returns:
+
+> Error: Command [write_file] generated identical failures across consecutive loops. Do not retry without modifying parameters.
+
+Calls 1–2 forward normally. Different arguments reset the counter. See [How the Echo Breaker Works](#how-the-echo-breaker-works) for the full algorithm.
+
+### Graph ledger (ABAB loop)
+
+The tripping call is blocked. The session enters a **paused** state — every subsequent `tools/call` is blocked with the same intervention until you resume:
+
+> Error: Detected tool invocation loop [write_file → read_file → write_file → read_file]. Execution paused. Open `mcp-breaker dashboard` and press **R** to resume, or change your approach.
+
+Resume from the terminal dashboard (**R**), the Streamlit dev lab (**Resume session**), or the control socket. While paused, no tool calls reach the child server.
+
+### Semantic stagnation (Test Case B)
+
+Unlike echo and graph, the tool call **goes through** — the agent gets the real server response. mcp-breaker **appends** an alert on the way back:
+
+> [CRITICAL REASONING ALERT] You have entered a semantic loop. You are continuously requesting the same files without creating distinct outcomes. Step back, abandon your current path, check alternate files, or request explicit clarification from the user.
+
+The original error text is preserved; `isError` is set to `true`. Requires the semantic embedder (`MCP_BREAKER_MOCK_EMBED=1` for dev, or `mcp-breaker models download` + ONNX for production).
+
+Live examples: run `make demo` (echo), `make validate` (all three), or `make dev-ui` (browser lab with timeline badges).
 
 ---
 
