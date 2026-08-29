@@ -383,6 +383,7 @@ mcp-breaker/
 make build    # compile ./mcp-breaker
 make test     # run all tests (framing, proxy, echo, integration)
 make validate # full local validation (tests + echo + semantic + graph)
+make negative-tests # simulate stuck-agent MCP traffic (echo, graph, semantic)
 make vet      # go vet
 make demo     # interactive local demo
 make clean    # remove build artifacts

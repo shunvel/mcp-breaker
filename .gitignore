@@ -16,6 +16,8 @@ demo-stdout.ndjson
 demo-stderr.log
 validate-stdout.ndjson
 validate-graph.ndjson
+negative-*.ndjson
+negative-*.ndjson
 
 # Go workspace
 go.work
