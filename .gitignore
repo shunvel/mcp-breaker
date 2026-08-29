@@ -34,5 +34,9 @@ go.work.sum
 .env
 .env.*
 
+# Python
+__pycache__/
+*.pyc
+
 # OS
 .DS_Store
