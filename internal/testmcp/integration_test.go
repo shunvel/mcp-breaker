@@ -4,7 +4,6 @@ import (
 	"context"
 	"encoding/json"
 	"io"
-	"os"
 	"os/exec"
 	"path/filepath"
 	"strings"
@@ -175,11 +174,10 @@ func moduleRoot(t *testing.T) string {
 }
 
 func goBinary() string {
-	if gopath := os.Getenv("GOROOT"); gopath != "" {
-		return filepath.Join(gopath, "bin", "go")
+	if p, err := exec.LookPath("go"); err == nil {
+		return p
 	}
-	home, _ := os.UserHomeDir()
-	return filepath.Join(home, "sdk", "go", "bin", "go")
+	return "go"
 }
 
 func writeFrame(t *testing.T, w io.Writer, frame proxy.Frame) {
