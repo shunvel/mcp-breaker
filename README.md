@@ -384,6 +384,9 @@ make build    # compile ./mcp-breaker
 make test     # run all tests (framing, proxy, echo, integration)
 make validate # full local validation (tests + echo + semantic + graph)
 make negative-tests # simulate stuck-agent MCP traffic (echo, graph, semantic)
+make validate-all # validate + negative-tests + UI e2e (headless)
+make dev-ui         # Streamlit lab — wrap + dashboard in one browser window
+make test-ui-e2e    # headless E2E for dev lab backend only
 make vet      # go vet
 make demo     # interactive local demo
 make clean    # remove build artifacts
