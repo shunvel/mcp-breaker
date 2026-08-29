@@ -4,6 +4,7 @@ import (
 	"net"
 	"os"
 	"path/filepath"
+	"sync/atomic"
 	"testing"
 	"time"
 
@@ -22,8 +23,8 @@ func TestBusPublishMetrics(t *testing.T) {
 func TestControlResume(t *testing.T) {
 	dir := t.TempDir()
 	socket := filepath.Join(dir, "control.sock")
-	called := false
-	srv := telemetry.NewControlServer(socket, "sess-1", func(_ string) { called = true })
+	var called atomic.Bool
+	srv := telemetry.NewControlServer(socket, "sess-1", func(_ string) { called.Store(true) })
 	if err := srv.Start(); err != nil {
 		t.Fatal(err)
 	}
@@ -33,7 +34,7 @@ func TestControlResume(t *testing.T) {
 		t.Fatal(err)
 	}
 	time.Sleep(50 * time.Millisecond)
-	if !called {
+	if !called.Load() {
 		t.Fatal("resume callback not invoked")
 	}
 }
