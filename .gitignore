@@ -2,6 +2,7 @@
 /mcp-breaker
 /fakemcp
 /bin/
+dist/
 *.exe
 *.exe~
 *.dll

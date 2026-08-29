@@ -1,7 +1,7 @@
 GO ?= go
 BINARY := mcp-breaker
 
-.PHONY: build test vet clean demo validate validate-all evidence evidence-ui negative-tests dev-ui test-ui-e2e
+.PHONY: build test vet clean demo validate validate-all evidence evidence-ui negative-tests dev-ui test-ui-e2e release-check release-snapshot
 
 build:
 	$(GO) build -o $(BINARY) ./cmd/mcp-breaker
@@ -41,3 +41,9 @@ test-ui-e2e:
 
 clean:
 	rm -f $(BINARY) fakemcp demo-stdout.ndjson demo-stderr.log validate-stdout.ndjson validate-graph.ndjson
+
+release-check:
+	goreleaser check
+
+release-snapshot:
+	goreleaser release --snapshot --clean

@@ -1,0 +1,79 @@
+version: 2
+
+project_name: mcp-breaker
+
+before:
+  hooks:
+    - go mod tidy
+
+builds:
+  - id: mcp-breaker
+    main: ./cmd/mcp-breaker
+    binary: mcp-breaker
+    env:
+      - CGO_ENABLED=0
+    ldflags:
+      - -s -w
+    goos:
+      - linux
+      - darwin
+      - windows
+    goarch:
+      - amd64
+      - arm64
+
+archives:
+  - id: default
+    formats:
+      - tar.gz
+    format_overrides:
+      - goos: windows
+        formats:
+          - zip
+    name_template: "{{ .ProjectName }}_{{ .Version }}_{{ .Os }}_{{ .Arch }}"
+    files:
+      - LICENSE
+      - README.md
+
+checksum:
+  name_template: checksums.txt
+
+changelog:
+  sort: asc
+  filters:
+    exclude:
+      - "^docs:"
+      - "^chore:"
+      - "^test:"
+      - Merge pull request
+
+release:
+  github:
+    owner: shunvel
+    name: mcp-breaker
+  mode: replace
+
+brews:
+  - name: mcp-breaker
+    directory: Formula
+    repository:
+      owner: shunvel
+      name: mcp-breaker
+      branch: main
+    commit_author:
+      name: github-actions[bot]
+      email: 41898282+github-actions[bot]@users.noreply.github.com
+    commit_msg_template: "brew: update {{ .ProjectName }} to {{ .Tag }}"
+    homepage: "https://github.com/shunvel/mcp-breaker"
+    description: "Semantic MCP circuit breaker proxy for AI agent tool loops"
+    license: "Apache-2.0"
+    install: |
+      bin.install "mcp-breaker"
+    test: |
+      assert_match "mcp-breaker", shell_output("#{bin}/mcp-breaker help", 2)
+    caveats: |
+      Semantic embeddings require the ONNX model cache:
+        mcp-breaker models download
+
+      For production semantic tracking install onnxruntime (e.g. brew install onnxruntime),
+      or set MCP_BREAKER_MOCK_EMBED=1 for development without ONNX.

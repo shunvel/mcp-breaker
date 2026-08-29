@@ -1,24 +1,16 @@
 # Homebrew installation
 
-Install **mcp-breaker** via a Homebrew tap (formula ships in this repository under [`Formula/mcp-breaker.rb`](../../Formula/mcp-breaker.rb)).
+Install **mcp-breaker** from the formula in this repository (`Formula/mcp-breaker.rb`). GoReleaser updates that formula automatically on each release.
 
-## Tap setup (maintainers)
-
-Create a public tap repository named **`homebrew-mcp-breaker`** under the `shunvel` GitHub account, then copy the formula:
+## Install
 
 ```bash
-# One-time tap repo setup
-gh repo create shunvel/homebrew-mcp-breaker --public
-cp Formula/mcp-breaker.rb /path/to/homebrew-mcp-breaker/Formula/mcp-breaker.rb
-```
-
-Users install with:
-
-```bash
-brew tap shunvel/mcp-breaker
-brew install mcp-breaker onnxruntime
+brew tap shunvel/mcp-breaker https://github.com/shunvel/mcp-breaker
+brew install mcp-breaker
 mcp-breaker models download
 ```
+
+The tap URL points at this repo (not a separate `homebrew-mcp-breaker` repository). GoReleaser commits formula updates to `Formula/mcp-breaker.rb` when a version tag is pushed.
 
 ## Verify
 
@@ -52,7 +44,7 @@ mcp-breaker wrap -- ./fakemcp
 
 This enables the mock embedder for semantic stagnation detection (Test Case B logic).
 
-## Build from source (no tap)
+## Build from source (no Homebrew)
 
 ```bash
 git clone https://github.com/shunvel/mcp-breaker.git
@@ -66,3 +58,7 @@ Optional ONNX-enabled build:
 ```bash
 go build -tags=onnx -o mcp-breaker ./cmd/mcp-breaker
 ```
+
+## Prebuilt binaries
+
+If you prefer not to use Homebrew, see [releases.md](releases.md) for GitHub Release downloads on macOS, Linux, and Windows.

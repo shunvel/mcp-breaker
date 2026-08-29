@@ -90,7 +90,18 @@ mcp-breaker models download       # fetch All-MiniLM-L6-v2 cache
 go build -tags=onnx -o mcp-breaker ./cmd/mcp-breaker
 ```
 
-See [docs/install/homebrew.md](docs/install/homebrew.md).
+See [docs/install/homebrew.md](docs/install/homebrew.md) and [docs/install/releases.md](docs/install/releases.md).
+
+### Releasing
+
+Tag pushes matching `v*` trigger [GoReleaser](https://goreleaser.com/) via `.github/workflows/release.yml`:
+
+```bash
+git tag v0.2.1
+git push origin v0.2.1
+```
+
+Dry-run locally: `make release-snapshot` (writes to `dist/` without publishing).
 
 ### Dashboard development
 
@@ -110,7 +121,7 @@ Run `mcp-breaker wrap` and `mcp-breaker dashboard` in separate terminals. Events
    - How you tested it
    - Any breaking changes
 
-CI must pass before merge. The workflow runs `go vet`, `go test -race`, build, demo smoke, and macOS semantic mock tests.
+CI must pass before merge. The workflow runs `go vet`, `go test -race`, build, demo smoke, GoReleaser snapshot, and macOS semantic mock tests.
 
 ### Review expectations
 

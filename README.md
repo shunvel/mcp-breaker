@@ -111,6 +111,29 @@ See [spec.md](spec.md) for the full product specification.
 
 ## Installation
 
+### Prebuilt binaries (recommended)
+
+Download a release for your platform — no Go required:
+
+**[GitHub Releases](https://github.com/shunvel/mcp-breaker/releases)** · macOS (arm64/amd64) · Linux · Windows
+
+```bash
+# macOS Apple Silicon example
+curl -LO https://github.com/shunvel/mcp-breaker/releases/download/v0.2.0/mcp-breaker_0.2.0_darwin_arm64.tar.gz
+tar xzf mcp-breaker_0.2.0_darwin_arm64.tar.gz
+sudo mv mcp-breaker /usr/local/bin/
+```
+
+See [docs/install/releases.md](docs/install/releases.md) for all platforms and checksum verification.
+
+### go install (Go 1.24+)
+
+```bash
+go install github.com/shunvel/mcp-breaker/cmd/mcp-breaker@latest
+```
+
+Binary installs to `$GOBIN` or `$GOPATH/bin`.
+
 ### From source
 
 ```bash
@@ -121,15 +144,17 @@ make build
 
 This produces a single static binary at `./mcp-breaker`.
 
-### Homebrew
+### Homebrew (macOS)
 
 ```bash
-brew tap shunvel/mcp-breaker   # after tap repo is published
-brew install mcp-breaker onnxruntime
-mcp-breaker models download
+brew tap shunvel/mcp-breaker https://github.com/shunvel/mcp-breaker
+brew install mcp-breaker
+mcp-breaker models download   # optional: semantic model cache
 ```
 
-See [docs/install/homebrew.md](docs/install/homebrew.md) for tap setup and ONNX configuration.
+For production semantic tracking, also install `onnxruntime` (`brew install onnxruntime`) or use `MCP_BREAKER_MOCK_EMBED=1` for development.
+
+See [docs/install/homebrew.md](docs/install/homebrew.md) for ONNX configuration.
 
 ### Verify the build
 
