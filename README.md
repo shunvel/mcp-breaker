@@ -24,6 +24,7 @@
 - [How the Echo Breaker Works](#how-the-echo-breaker-works)
 - [Project Structure](#project-structure)
 - [Development](#development)
+- [Test evidence](#test-evidence)
 - [Roadmap](#roadmap)
 - [License](#license)
 
@@ -186,6 +187,19 @@ go build -o fakemcp ./internal/testmcp/cmd/fakemcp
 ```
 
 Press **R** in the dashboard to resume after a graph loop pause.
+
+### Option 5 — Streamlit dev lab (browser)
+
+Run the interactive test lab in one window — no Cursor config required:
+
+```bash
+make build && go build -o fakemcp ./internal/testmcp/cmd/fakemcp
+make dev-ui   # http://localhost:8501
+```
+
+Flow: **Start proxy** → pick a scenario (Echo, Graph, Semantic) → **Run test** → scroll for results and live dashboard metrics.
+
+For the **Semantic stagnation** test, enable **Mock semantic embedder** in the sidebar Settings.
 
 ---
 
@@ -368,6 +382,7 @@ mcp-breaker/
 │   └── protocol/             # MCP types and intervention payloads
 ├── Formula/                  # Homebrew formula
 ├── internal/testmcp/         # Fake MCP server for tests and demos
+├── ui/                       # Streamlit dev lab (make dev-ui)
 ├── scripts/demo.sh           # One-command local demo
 ├── docs/                     # Release notes, install guides
 ├── spec.md                   # Full product specification
@@ -387,6 +402,7 @@ make negative-tests # simulate stuck-agent MCP traffic (echo, graph, semantic)
 make validate-all # validate + negative-tests + UI e2e (headless)
 make dev-ui         # Streamlit lab — wrap + dashboard in one browser window
 make test-ui-e2e    # headless E2E for dev lab backend only
+make evidence-ui    # capture Streamlit lab screenshots (server must be running)
 make vet      # go vet
 make demo     # interactive local demo
 make clean    # remove build artifacts
@@ -448,11 +464,42 @@ Live metrics, event stream, graph trip alert, and `[R] Resume` control during a 
 
 ![dashboard TUI](docs/evidence/dashboard-tui.svg)
 
-Regenerate evidence after code changes:
+### Streamlit dev lab (`make dev-ui`)
+
+Browser test lab at [http://localhost:8501](http://localhost:8501) — start the proxy, run canned stuck-agent scenarios, and watch results plus live dashboard metrics in one page.
+
+![dev lab home](docs/evidence/ui/01-home.png)
+
+**Start proxy** — launches `mcp-breaker wrap -- fakemcp` with telemetry wired to the live dashboard panel.
+
+![proxy running](docs/evidence/ui/02-proxy-running.png)
+
+**Echo loop (Test Case A)** — calls 1–2 forward; call 3 blocked with an `ECHO BLOCK` badge in the results timeline.
+
+![echo results](docs/evidence/ui/03-echo-results.png)
+
+**Settings** — enable **Mock semantic embedder** for the semantic stagnation scenario (Test Case B).
+
+![settings sidebar](docs/evidence/ui/04-settings-sidebar.png)
+
+**Semantic stagnation (Test Case B)** — paraphrased port errors plus a `SEMANTIC ALERT` on turn 3.
+
+![semantic results](docs/evidence/ui/05-semantic-results.png)
+
+**Live dashboard** — same counters and event stream as the terminal TUI, updated after each test run.
+
+![live dashboard panel](docs/evidence/ui/06-dashboard.png)
+
+Regenerate terminal evidence after code changes:
 
 ```bash
-make validate
-python3 scripts/render_evidence.py
+make evidence
+```
+
+Regenerate UI screenshots (with `make dev-ui` running in another terminal):
+
+```bash
+make evidence-ui
 ```
 
 ### Contributing

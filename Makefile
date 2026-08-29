@@ -1,7 +1,7 @@
 GO ?= go
 BINARY := mcp-breaker
 
-.PHONY: build test vet clean demo validate validate-all evidence negative-tests dev-ui test-ui-e2e
+.PHONY: build test vet clean demo validate validate-all evidence evidence-ui negative-tests dev-ui test-ui-e2e
 
 build:
 	$(GO) build -o $(BINARY) ./cmd/mcp-breaker
@@ -23,6 +23,9 @@ validate-all: validate negative-tests test-ui-e2e
 evidence:
 	bash scripts/validate.sh
 	python3 scripts/render_evidence.py
+
+evidence-ui:
+	python3 scripts/capture_ui_screenshots.py
 
 negative-tests:
 	bash scripts/negative_tests.sh
