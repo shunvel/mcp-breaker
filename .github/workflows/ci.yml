@@ -1,0 +1,62 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    name: Test
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Go
+        uses: actions/setup-go@v5
+        with:
+          go-version: "1.23"
+          cache: true
+
+      - name: Verify module
+        run: go mod verify
+
+      - name: Vet
+        run: go vet ./...
+
+      - name: Test
+        run: go test ./... -count=1 -race
+
+      - name: Build
+        run: go build -o mcp-breaker ./cmd/mcp-breaker
+
+      - name: Build fakemcp (test helper)
+        run: go build -o fakemcp ./internal/testmcp/cmd/fakemcp
+
+  demo-smoke:
+    name: Demo smoke
+    runs-on: ubuntu-latest
+    needs: test
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Go
+        uses: actions/setup-go@v5
+        with:
+          go-version: "1.23"
+          cache: true
+
+      - name: Run demo script
+        run: |
+          go build -o mcp-breaker ./cmd/mcp-breaker
+          go build -o fakemcp ./internal/testmcp/cmd/fakemcp
+          bash scripts/demo.sh
+
+      - name: Assert echo trip occurred
+        run: grep -q "identical failures" demo-stdout.ndjson

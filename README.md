@@ -2,6 +2,7 @@
 
 [![License: Apache-2.0](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](LICENSE)
 [![Go](https://img.shields.io/badge/Go-1.23+-00ADD8?logo=go&logoColor=white)](https://go.dev/)
+[![CI](https://github.com/shunvel/mcp-breaker/actions/workflows/ci.yml/badge.svg)](https://github.com/shunvel/mcp-breaker/actions/workflows/ci.yml)
 
 **Semantic MCP Circuit Breaker** — an open-source, zero-dependency JSON-RPC proxy that sits between AI clients and [Model Context Protocol (MCP)](https://modelcontextprotocol.io/) servers. It detects tool invocation loops early and intervenes gracefully before they drain API credits and flood agent context windows.
 
@@ -359,10 +360,7 @@ make clean    # remove build artifacts
 
 ### Contributing
 
-1. Fork the repository
-2. Create a feature branch
-3. Run `make test && make vet`
-4. Open a pull request against `main`
+See [CONTRIBUTING.md](CONTRIBUTING.md) for development setup, conventions, and the pull request process.
 
 ---
 

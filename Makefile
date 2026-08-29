@@ -1,4 +1,4 @@
-GO ?= $(HOME)/sdk/go/bin/go
+GO ?= go
 BINARY := mcp-breaker
 
 .PHONY: build test vet clean demo

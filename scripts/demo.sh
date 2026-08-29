@@ -4,13 +4,13 @@
 set -euo pipefail
 
 ROOT="$(cd "$(dirname "$0")/.." && pwd)"
-export PATH="${HOME}/sdk/go/bin:${PATH}"
+GO="${GO:-go}"
 
 cd "$ROOT"
 
 echo "Building mcp-breaker and fakemcp..."
-go build -o "$ROOT/mcp-breaker" ./cmd/mcp-breaker
-go build -o "$ROOT/fakemcp" ./internal/testmcp/cmd/fakemcp
+"$GO" build -o "$ROOT/mcp-breaker" ./cmd/mcp-breaker
+"$GO" build -o "$ROOT/fakemcp" ./internal/testmcp/cmd/fakemcp
 
 echo ""
 echo "=== Demo: 3 identical write_file calls ==="
